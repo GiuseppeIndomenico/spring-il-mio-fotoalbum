@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+		integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<title>photo-index</title>
+</head>
+
+<body class="bg-info-subtle">
+	<div class="min-vh-100">
+
+		<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+			<div class="container-fluid">
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+					data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a class="nav-link active fw-bold me-3" aria-current="page" href="#">Photo Archive</a>
+						</li>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+								aria-expanded="false">
+								Implementazione Login
+							</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="#">Sign In</a></li>
+								<li><a class="dropdown-item" href="#">Logout</a></li>
+							</ul>
+						</li>
+
+					</ul>
+					<form class="d-flex" action="/photos/search" method="get" role="search">
+						<input class="form-control me-2" type="text" placeholder="Search" aria-label="Search"
+							name="title">
+						<button class="btn btn-outline-success" type="submit">Search</button>
+					</form>
+				</div>
+			</div>
+		</nav>
+		<div class=" container d-flex align-items-center justify-content-center min-vh-100">
+			<table class="table table-success table-striped text-center shadow">
+				<thead>
+
+					<tr>
+						<th scope="col-2">Titles</th>
+						<th scope="col-2">Description</th>
+						<th scope="col">Prewiew</th>
+						<th scope="col-2">Categories</th>
+						<th scope="col-2">Settings</th>
+					</tr>
+				</thead>
+
+				<tr class="text-center" th:each="photo:${photos}" th:object="${photo}">
+					<td>
+						[[*{title}]]
+					</td>
+					<td>
+						[[*{description}]]
+					</td>
+					<td>
+						[[*{url}]]
+					</td>
+					<td>
+						<em class="" th:each="category, iterStat: ${photo.categories}">
+							[[${category.name}]]
+							<span th:if="${!iterStat.last}">, </span>
+						</em>
+					</td>
+					<td class="d-flex align-items-center justify-content-center">
+						<a class="btn btn-warning text-light mx-2" th:href="@{/photos/{id}(id=*{id})}">
+							<i class="fa-solid fa-eye"></i>
+						</a>
+						<a class="btn btn-primary mx-2" th:href="@{/photos/update/{id}(id=*{id})}">
+							<i class="fa-solid fa-pencil"></i>
+						</a>
+						<form th:action="@{/photos/delete/{id}(id=*{id})}" method="POST">
+							<input type="hidden" name="photoId" value="[[*{id}]]">
+							<button class="btn btn-danger mx-2" type="submit"><i class="fa-solid fa-trash"></i></button>
+						</form>
+					</td>
+
+
+				</tr>
+
+
+
+
+
+			</table>
+
+		</div>
+	</div>
+
+	<script th:src="@{/webjars/bootstrap/5.3.2/js/bootstrap.bundle.min.js}"></script>
+</body>
+
+</html>

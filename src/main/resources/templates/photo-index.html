@@ -46,56 +46,66 @@
 			</div>
 		</nav>
 		<div class=" container d-flex align-items-center justify-content-center min-vh-100">
-			<table class="table table-success table-striped text-center shadow">
-				<thead>
 
-					<tr>
-						<th scope="col-2">Titles</th>
-						<th scope="col-2">Description</th>
-						<th scope="col">Prewiew</th>
-						<th scope="col-2">Categories</th>
-						<th scope="col-2">Settings</th>
+			<div class="card position-relative">
+
+
+				<table class="table table-success table-striped text-center shadow m-0">
+					<thead>
+
+						<tr>
+							<th scope="col-2">Titles</th>
+							<th scope="col-2">Description</th>
+							<th scope="col">Prewiew</th>
+							<th scope="col-2">Categories</th>
+							<th scope="col-2">Settings</th>
+						</tr>
+					</thead>
+
+					<tr class="text-center" th:each="photo:${photos}" th:object="${photo}">
+						<td>
+							[[*{title}]]
+						</td>
+						<td>
+							[[*{description}]]
+						</td>
+						<td>
+							[[*{url}]]
+						</td>
+						<td>
+							<em class="" th:each="category, iterStat: ${photo.categories}">
+								[[${category.name}]]
+								<span th:if="${!iterStat.last}">, </span>
+							</em>
+						</td>
+						<td class="d-flex align-items-center justify-content-center">
+							<a class="btn btn-warning text-light mx-2" th:href="@{/photos/{id}(id=*{id})}">
+								<i class="fa-solid fa-eye"></i>
+							</a>
+							<a class="btn btn-primary mx-2" th:href="@{/photos/update/{id}(id=*{id})}">
+								<i class="fa-solid fa-pencil"></i>
+							</a>
+							<form th:action="@{/photos/delete/{id}(id=*{id})}" method="POST">
+								<input type="hidden" name="photoId" value="[[*{id}]]">
+								<button class="btn btn-danger mx-2" type="submit"><i
+										class="fa-solid fa-trash"></i></button>
+							</form>
+						</td>
+
+
 					</tr>
-				</thead>
-
-				<tr class="text-center" th:each="photo:${photos}" th:object="${photo}">
-					<td>
-						[[*{title}]]
-					</td>
-					<td>
-						[[*{description}]]
-					</td>
-					<td>
-						[[*{url}]]
-					</td>
-					<td>
-						<em class="" th:each="category, iterStat: ${photo.categories}">
-							[[${category.name}]]
-							<span th:if="${!iterStat.last}">, </span>
-						</em>
-					</td>
-					<td class="d-flex align-items-center justify-content-center">
-						<a class="btn btn-warning text-light mx-2" th:href="@{/photos/{id}(id=*{id})}">
-							<i class="fa-solid fa-eye"></i>
-						</a>
-						<a class="btn btn-primary mx-2" th:href="@{/photos/update/{id}(id=*{id})}">
-							<i class="fa-solid fa-pencil"></i>
-						</a>
-						<form th:action="@{/photos/delete/{id}(id=*{id})}" method="POST">
-							<input type="hidden" name="photoId" value="[[*{id}]]">
-							<button class="btn btn-danger mx-2" type="submit"><i class="fa-solid fa-trash"></i></button>
-						</form>
-					</td>
-
-
-				</tr>
 
 
 
 
 
-			</table>
+				</table>
 
+				<a style="bottom:-10px; right:-20px; width:2rem; height:2rem" th:href="@{/photos/create}"
+					class=" position-absolute btn btn-success fw-bold d-flex align-items-center justify-content-center">
+					<h3>+</h3>
+				</a>
+			</div>
 		</div>
 	</div>
 

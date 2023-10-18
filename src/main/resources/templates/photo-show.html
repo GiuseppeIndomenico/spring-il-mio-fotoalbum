@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="UTF-8">
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}" />
@@ -8,7 +9,30 @@
 		crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<title>photo-index</title>
 </head>
-<body>
+
+<body class="min-vh-100 bg-info-subtle">
+	<div class="min-vh-100 container d-flex align-items-center justify-content-center">
+
+		<div class="card position-relative" style="width: 750px;">
+			<img th:src="${photo.url}" class="card-img-top" th:alt="${photo.id}">
+			<div class="card-body">
+				<h5 class="card-title">[[${photo.title}]]</h5>
+				<p class="card-text">[[${photo.description}]]</p>
+
+				<p>
+					categorie:
+					<em class="" th:each="category, iterStat: ${photo.categories}">
+						[[${category.name}]]
+						<span th:if="${!iterStat.last}">, </span>
+					</em>
+				</p>
+				<a th:href="@{/photos}" class="btn btn-info position-absolute" style="bottom: -15px; right: -10px;">Go back</a>
+			</div>
+		</div>
+
+
+	</div>
 
 </body>
+
 </html>

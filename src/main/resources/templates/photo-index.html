@@ -23,15 +23,22 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						<li class="nav-item">
-							<a class="nav-link active fw-bold me-3" aria-current="page" href="#">Photo Archive</a>
+							<a class="nav-link active fw-bold me-3" aria-current="page" href="#">
+								<h4>
+									Photo Archive
+								</h4>
+							</a>
 						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-								aria-expanded="false">
-								Implementazione Login
+						<li class="nav-item dropdown mt-2">
+							<a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button"
+								data-bs-toggle="dropdown" aria-expanded="false">
+								<h6>
+									<em>
+										Welcome, <span th:text="${username}"></span>!
+									</em>
+								</h6>
 							</a>
 							<ul class="dropdown-menu">
-								<li><a class="dropdown-item" href="#">Sign In</a></li>
 								<li><a class="dropdown-item" href="#">Logout</a></li>
 							</ul>
 						</li>
@@ -62,7 +69,7 @@
 						</tr>
 					</thead>
 
-					<tr class="text-center" th:each="photo:${photos}" th:object="${photo}">
+					<tr style="height: 75px;" class="text-center pt-2" th:each="photo:${photos}" th:object="${photo}">
 						<td>
 							[[*{title}]]
 						</td>
@@ -70,29 +77,34 @@
 							[[*{description}]]
 						</td>
 						<td>
-							[[*{url}]]
+							<div style="max-width: 100px;">
+
+								<img class="img-fluid" th:src="${photo.url}" alt="Image" />
+							</div>
 						</td>
+
 						<td>
 							<em class="" th:each="category, iterStat: ${photo.categories}">
 								[[${category.name}]]
 								<span th:if="${!iterStat.last}">, </span>
 							</em>
 						</td>
-						<td class="d-flex align-items-center justify-content-center">
-							<a class="btn btn-warning text-light mx-2" th:href="@{/photos/{id}(id=*{id})}">
-								<i class="fa-solid fa-eye"></i>
-							</a>
-							<a class="btn btn-primary mx-2" th:href="@{/photos/update/{id}(id=*{id})}">
-								<i class="fa-solid fa-pencil"></i>
-							</a>
-							<form th:action="@{/photos/delete/{id}(id=*{id})}" method="POST">
-								<input type="hidden" name="photoId" value="[[*{id}]]">
-								<button class="btn btn-danger mx-2" type="submit"><i
-										class="fa-solid fa-trash"></i></button>
-							</form>
+						<td>
+							<div class="d-flex align-items-center justify-content-center">
+
+								<a class="btn btn-warning text-light mx-2" th:href="@{/photos/{id}(id=*{id})}">
+									<i class="fa-solid fa-eye"></i>
+								</a>
+								<a class="btn btn-primary mx-2" th:href="@{/photos/update/{id}(id=*{id})}">
+									<i class="fa-solid fa-pencil"></i>
+								</a>
+								<form th:action="@{'/photos/delete/' + ${photo.id}}" method="POST">
+									<button class="btn btn-danger mx-2" type="submit">
+										<i class="fa-solid fa-trash"></i>
+									</button>
+								</form>
+							</div>
 						</td>
-
-
 					</tr>
 
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<meta charset="UTF-8">
 	<link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.2/css/bootstrap.min.css}" />
@@ -8,7 +9,84 @@
 		crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<title>photo-index</title>
 </head>
-<body>
 
+<body class="bg-info-subtle">
+	<div class="container min-vh-100 d-flex align-items-center justify-content-center">
+		<div class="card w-75">
+			<div class="card-header">
+				<h1 class="text-center">
+					Update Photo
+				</h1>
+				<div class="card-body">
+					<form th:object="${photo}" method="post" th:action="@{/photos/update/{id}(id=${photo.id})}">
+
+						<div class="row mb-3">
+							<input type="hidden" th:field="*{user.id}" th:value="${photo.user.id}" />
+						</div>
+
+						<div class="row mb-3">
+							<label for="title" class="col-sm-2 col-form-label fw-bold">Title</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" th:field="*{title}" required>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label for="url" class="col-sm-2 col-form-label fw-bold">Image URL</label>
+							<div class="col-sm-10">
+								<input type="url" class="form-control" th:field="*{url}" required>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label for="description" class="col-sm-2 col-form-label fw-bold">Description</label>
+							<div class="col-sm-10">
+								<textarea class="w-100" id="description" th:field="*{description}" rows="3"
+									cols="30"></textarea>
+							</div>
+						</div>
+
+						<div class="row mb-3 align-items-center">
+							<label class="col-sm-2 col-form-label fw-bold">Visibility</label>
+							<div class="col-sm-10">
+								<div>
+									<input type="radio" id="visible" name="visible" value="true"
+										th:checked="${photo.visible == true}" required>
+									<label for="visible">Visible</label>
+								</div>
+								<div>
+									<input type="radio" id="notvisible" name="visible" value="false"
+										th:checked="${photo.visible == false}" required>
+									<label for="notvisible">Not Visible</label>
+								</div>
+							</div>
+						</div>
+
+
+
+						<div class="row mb-3">
+							<label class="col-2 col-form-label fw-bold">Categories</label>
+						</div>
+						<div class="row mb-3">
+							<div class="col-3" th:each="category : ${categories}">
+								<input type="checkbox" th:id="'categories-' + ${category.id}"
+									th:name="'categories[' + ${category.id} + ']'" th:value="${category.id}"
+									th:checked="${photo.categories.contains(category)}" />
+								<label th:for="'categories-' + ${category.id}" th:text="${category.name}"></label>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-4">
+								<button type="submit" class="btn btn-primary me-2 fw-bold">Update</button>
+								<button type="reset" class="btn btn-warning fw-bold text-light">Reset</button>
+							</div>
+							<div class="col"></div>
+							<a class="btn btn-info fw-bold text-light col-2" th:href="@{/photos}"> Go Back</a>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
+
 </html>

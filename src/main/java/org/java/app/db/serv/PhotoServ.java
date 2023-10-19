@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.java.app.db.pojo.Photo;
 import org.java.app.db.repo.PhotoRepo;
+import org.java.app.mvc.auth.pojo.User;
+import org.java.app.mvc.auth.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,9 @@ public class PhotoServ {
 
 	@Autowired
 	private PhotoRepo photoRepo;
+	
+	@Autowired
+	private UserRepo userRepo;
 	
 	public Photo save (Photo photo) {
 		return photoRepo.save(photo);
@@ -33,6 +38,12 @@ public class PhotoServ {
 	public Optional<Photo> findById(int id) {
 		return photoRepo.findById(id);
 	}
+	
+	public List<Photo> findPhotosByUsername(String username) {
+	    User user = userRepo.findByUsername(username);
+	    return user.getPhotos();
+	}
+
 	
 	
 	

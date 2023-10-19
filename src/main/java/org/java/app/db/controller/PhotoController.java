@@ -6,7 +6,12 @@ import org.java.app.db.pojo.Category;
 import org.java.app.db.pojo.Photo;
 import org.java.app.db.serv.CategoryServ;
 import org.java.app.db.serv.PhotoServ;
+import org.java.app.mvc.auth.pojo.User;
+import org.java.app.mvc.auth.repo.UserRepo;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,10 +33,24 @@ public class PhotoController {
 	@Autowired
 	private CategoryServ categoryServ;
 
+	@Autowired
+	private UserRepo userRepo;
+
 	@GetMapping
 	public String getIndex(Model model) {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String loggedInUsername = userDetails.getUsername();
 
-		List<Photo> photos = photoServ.findAll();
+		model.addAttribute("username", loggedInUsername);
+
+		List<Photo> photos;
+
+		if (userDetails.getAuthorities().stream()
+				.anyMatch(a -> a.getAuthority().equals("SuperMegaDirettoreGalattico"))) {
+			photos = photoServ.findAll();
+		} else {
+			photos = photoServ.findPhotosByUsername(loggedInUsername);
+		}
 
 		model.addAttribute("photos", photos);
 		return "photo-index";
@@ -42,12 +61,14 @@ public class PhotoController {
 		Photo photo = photoServ.findById(id).orElse(null);
 
 		if (photo != null) {
+			User user = photo.getUser(); // Ottieni l'utente associato alla foto
+			String username = (user != null) ? user.getUsername() : "Utente sconosciuto"; // Otteni il nome utente
 			model.addAttribute("photo", photo);
+			model.addAttribute("username", username); // Aggiungi il nome utente al model
 			return "photo-show";
 		} else {
 			return "photo-not-found";
 		}
-
 	}
 
 	@GetMapping("/search")
@@ -61,19 +82,78 @@ public class PhotoController {
 	@GetMapping("/create")
 	public String getCreateForm(Model model) {
 		List<Category> categories = categoryServ.findAll();
+
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String loggedInUsername = userDetails.getUsername();
+		User user = userRepo.findByUsername(loggedInUsername);
+
 		model.addAttribute("categories", categories);
+		model.addAttribute("user", user);
 		model.addAttribute("photo", new Photo());
 
 		return "photo-create";
-
 	}
 
 	@PostMapping("/create")
 	public String storePhoto(@Valid @ModelAttribute Photo photo, Model model) {
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String loggedInUsername = userDetails.getUsername();
 
-		
+		User user = userRepo.findByUsername(loggedInUsername);
+
+		photo.setUser(user);
+
 		photoServ.save(photo);
-		return "redirect:/photos";
 
+		return "redirect:/photos";
 	}
+
+	@GetMapping("/update/{id}")
+	public String getUpdateForm(@PathVariable int id, Model model) {
+
+		Photo photo = photoServ.findById(id).orElse(null);
+
+		if (photo != null) {
+			List<Category> categories = categoryServ.findAll();
+			UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+					.getPrincipal();
+			String loggedInUsername = userDetails.getUsername();
+			User user = userRepo.findByUsername(loggedInUsername);
+
+			model.addAttribute("categories", categories);
+			model.addAttribute("user", user);
+			model.addAttribute("photo", photo);
+
+			return "photo-update";
+		} else {
+
+			return "photo-not-found";
+		}
+	}
+
+	@PostMapping("/update/{id}")
+	public String updatePhoto(@PathVariable int id, @Valid @ModelAttribute Photo updatedPhoto) {
+
+		if (updatedPhoto.getId() == id) {
+
+			photoServ.save(updatedPhoto);
+			return "redirect:/photos";
+		} else {
+
+			return "photo-not-found";
+		}
+	}
+
+	@PostMapping("/delete/{id}")
+	public String deletePhoto(@PathVariable int id) {
+		Photo photo = photoServ.findById(id).orElse(null);
+
+		if (photo != null) {
+			photoServ.deletePhoto(photo);
+			return "redirect:/photos";
+		} else {
+			return "photo-not-found";
+		}
+	}
+
 }

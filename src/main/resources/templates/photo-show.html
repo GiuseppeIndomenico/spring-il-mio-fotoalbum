@@ -26,7 +26,10 @@
 						<span th:if="${!iterStat.last}">, </span>
 					</em>
 				</p>
-				<a th:href="@{/photos}" class="btn btn-info position-absolute" style="bottom: -15px; right: -10px;">Go back</a>
+				<p>Created by: <em th:text="${username}"></em></p>
+
+				<a th:href="@{/photos}" class="btn btn-info position-absolute" style="bottom: -15px; right: -10px;">Go
+					back</a>
 			</div>
 		</div>
 

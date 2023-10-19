@@ -2,6 +2,8 @@ package org.java.app.db.pojo;
 
 import java.util.Arrays;
 import java.util.List;
+
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.validator.constraints.Length;
 import org.java.app.mvc.auth.pojo.User;
 
@@ -32,6 +34,8 @@ public class Photo {
 
 	@Column(nullable = false)
 	private String url;
+
+	@ColumnDefault("1")
 	private boolean visible;
 
 	@ManyToMany

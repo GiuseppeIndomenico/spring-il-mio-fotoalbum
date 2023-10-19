@@ -16,13 +16,17 @@ public class AuthConfig {
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 		http.csrf().disable().authorizeHttpRequests()
-				.requestMatchers("/pizze/create").hasAuthority("ADMIN")
-				.requestMatchers("/api/v1.0/**").permitAll()
-				.requestMatchers("/pizze/update/**").hasAuthority("ADMIN")
-				.requestMatchers("/pizze/delete/**").hasAuthority("ADMIN")
-				.requestMatchers("/ingredienti/create").hasAuthority("ADMIN")
-				.requestMatchers("/pizze/offerta/**").hasAuthority("ADMIN")
-				.requestMatchers("/**").permitAll().and().formLogin().defaultSuccessUrl("/pizze").and().logout();
+	    .requestMatchers("/photos/**").hasAnyAuthority("SuperMegaDirettoreGalattico", "ADMIN")
+	    .requestMatchers("/api/v1.0/**").permitAll()
+	    .requestMatchers("/photos/create").hasAnyAuthority("SuperMegaDirettoreGalattico", "ADMIN")
+	    .requestMatchers("/photos/update/**").hasAnyAuthority("SuperMegaDirettoreGalattico", "ADMIN")
+	    .requestMatchers("/photos/delete/**").hasAnyAuthority("SuperMegaDirettoreGalattico", "ADMIN")
+	    .requestMatchers("/ingredienti/create").hasAnyAuthority("SuperMegaDirettoreGalattico", "ADMIN")
+	    .requestMatchers("/photos/offerta/**").hasAnyAuthority("SuperMegaDirettoreGalattico", "ADMIN")
+	    .requestMatchers("/**").permitAll()
+	    .and().formLogin().defaultSuccessUrl("/photos")
+	    .and().logout();
+
 
 		return http.build();
 	}

@@ -27,7 +27,7 @@ public class CategoryServ {
 		categoryRepo.save(category);
 	}
 	
-	public void deleteIngrediente(Category category) {
+	public void delete(Category category) {
 		categoryRepo.delete(category);
 	}
 	

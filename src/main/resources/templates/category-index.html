@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
 		integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
 		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" th:href="@{/css/style.css}">
 	<title>photo-index</title>
 </head>
 
@@ -39,12 +40,12 @@
 								</h6>
 							</a>
 							<ul class="dropdown-menu">
-								<li><a class="dropdown-item" th:href="@{/categories}">Categories List</a></li>
+								<li><a class="dropdown-item" th:href="@{/photos}">photos List</a></li>
 								<li><a class="dropdown-item" href="#">Logout</a></li>
 							</ul>
 
-					
-				
+
+
 						</li>
 
 					</ul>
@@ -58,71 +59,50 @@
 		</nav>
 		<div class=" container d-flex align-items-center justify-content-center min-vh-100">
 
-			<div class="card position-relative">
+			<div class="row mb-5">
+				<div th:each="category : ${categories}" class="col-4 mb-5">
+					<div class=" position-relative bg-success text-light fw-bold p-2 rounded shadow  fs-3 w-50">
+						<span class="" th:text="${category.name}"></span>
+						<form th:action="@{'/categories/delete/' + ${category.id}}" method="POST">
+							<button class="position-absolute btn-delete bg-danger rounded text-light" type="submit">
+								<i class="fa-solid fa-trash"></i>
+							</button>
+						</form>
+
+					</div>
 
 
-				<table class="table table-success table-striped text-center shadow m-0">
-					<thead>
+				</div>
+				<div class="col-12">
+					<div class="row">
+						<div class="col-6">
+							<div class="card">
+								<div class="card-header">
+									<span class="fw-bold fs-3"> Create new category </span>
+								</div>
+								<div class="card-body">
+									<form th:action="@{/categories}" method="post">
+										<div class="mb-3">
+											<label for="name" class="form-label">New Category Name</label>
+											<input type="text" class="form-control" name="name" required>
+										</div>
 
-						<tr>
-							<th scope="col-2">Titles</th>
-							<th scope="col-2">Description</th>
-							<th scope="col">Prewiew</th>
-							<th scope="col-2">Categories</th>
-							<th scope="col-2">Settings</th>
-						</tr>
-					</thead>
+										<button type="submit" class="btn btn-primary">Create</button>
+										<button type="reset" class="btn btn-warning">Reset</button>
+									</form>
 
-					<tr style="height: 75px;" class="text-center pt-2" th:each="photo:${photos}" th:object="${photo}">
-						<td>
-							[[*{title}]]
-						</td>
-						<td>
-							[[*{description}]]
-						</td>
-						<td>
-							<div style="max-width: 100px;">
-
-								<img class="img-fluid" th:src="${photo.url}" alt="Image" />
+								</div>
 							</div>
-						</td>
+						</div>
 
-						<td>
-							<em class="" th:each="category, iterStat: ${photo.categories}">
-								[[${category.name}]]
-								<span th:if="${!iterStat.last}">, </span>
-							</em>
-						</td>
-						<td>
-							<div class="d-flex align-items-center justify-content-center">
-
-								<a class="btn btn-warning text-light mx-2" th:href="@{/photos/{id}(id=*{id})}">
-									<i class="fa-solid fa-eye"></i>
-								</a>
-								<a class="btn btn-primary mx-2" th:href="@{/photos/update/{id}(id=*{id})}">
-									<i class="fa-solid fa-pencil"></i>
-								</a>
-								<form th:action="@{'/photos/delete/' + ${photo.id}}" method="POST">
-									<button class="btn btn-danger mx-2" type="submit">
-										<i class="fa-solid fa-trash"></i>
-									</button>
-								</form>
-							</div>
-						</td>
-					</tr>
-
-
-
-
-
-				</table>
-
-				<a style="bottom:-10px; right:-20px; width:2rem; height:2rem" th:href="@{/photos/create}"
-					class=" position-absolute btn btn-success fw-bold d-flex align-items-center justify-content-center">
-					<h3>+</h3>
-				</a>
+					</div>
+				</div>
 			</div>
+
+
 		</div>
+
+	</div>
 	</div>
 
 	<script th:src="@{/webjars/bootstrap/5.3.2/js/bootstrap.bundle.min.js}"></script>

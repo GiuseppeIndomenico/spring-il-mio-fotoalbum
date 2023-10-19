@@ -18,15 +18,15 @@ public class AuthConfig {
 		http.csrf().disable().authorizeHttpRequests()
 	    .requestMatchers("/photos/**").hasAnyAuthority("SuperMegaDirettoreGalattico", "ADMIN")
 	    .requestMatchers("/categories/**").hasAnyAuthority("SuperMegaDirettoreGalattico", "ADMIN")
-	    .requestMatchers("/api/v1.0/**").permitAll()
+	    .requestMatchers("/api/photos/**").permitAll()
 	    .requestMatchers("/photos/create").hasAnyAuthority("SuperMegaDirettoreGalattico", "ADMIN")
 	    .requestMatchers("/photos/update/**").hasAnyAuthority("SuperMegaDirettoreGalattico", "ADMIN")
 	    .requestMatchers("/photos/delete/**").hasAnyAuthority("SuperMegaDirettoreGalattico", "ADMIN")
-	    .requestMatchers("/ingredienti/create").hasAnyAuthority("SuperMegaDirettoreGalattico", "ADMIN")
-	    .requestMatchers("/photos/offerta/**").hasAnyAuthority("SuperMegaDirettoreGalattico", "ADMIN")
 	    .requestMatchers("/**").permitAll()
 	    .and().formLogin().defaultSuccessUrl("/photos")
-	    .and().logout();
+	    .and().logout()
+        .logoutUrl("/logout")  // Specifica l'URL di logout
+        .logoutSuccessUrl("/login");
 
 
 		return http.build();

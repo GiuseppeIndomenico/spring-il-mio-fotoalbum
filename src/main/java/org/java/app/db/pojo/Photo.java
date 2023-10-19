@@ -5,10 +5,13 @@ import java.util.List;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.validator.constraints.Length;
+import org.java.app.api.dto.PhotoDTO;
 import org.java.app.mvc.auth.pojo.User;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -46,6 +49,15 @@ public class Photo {
 	@JoinColumn(name = "user_id")
 	@JsonBackReference
 	private User user;
+	
+	@JsonProperty("user_id")
+	public int getUserId() {
+	    if (user != null) {
+	        return user.getId();
+	    }
+	    return 0; // O qualsiasi valore di default desiderato se user è null
+	}
+
 
 	public Photo() {
 	}
@@ -58,6 +70,20 @@ public class Photo {
 		setVisible(visible);
 		setCategories(Arrays.asList(categories));
 		setUser(user);
+	}
+
+	public Photo(PhotoDTO photoDto) {
+		setTitle(photoDto.getTitle());
+		setDescription(photoDto.getDescription());
+		setUrl(photoDto.getUrl());
+		setVisible(photoDto.isVisible());
+	}
+
+	public void fillFromPhotoDto(PhotoDTO photoDto) {
+		setTitle(photoDto.getTitle());
+		setDescription(photoDto.getDescription());
+		setUrl(photoDto.getUrl());
+		setVisible(photoDto.isVisible());
 	}
 
 	public int getId() {

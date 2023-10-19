@@ -77,14 +77,29 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner {
 
 		System.out.println("User Ok");
 
-		Photo p1 = new Photo("title1", "desc1", "url1", false, admin1, c2,c3);
-		Photo p2 = new Photo("title2", "desc2", "url2", false, user1, c4,c5);
-		Photo p3 = new Photo("title3", "desc3", "url3", true, bigBoss, c7,c1,c2);
-		Photo p4 = new Photo("title4", "desc4", "url4", true, bigBoss, c5,c8);
-		Photo p5 = new Photo("title35", "desc5", "url5", true, admin1, c2);
-		Photo p6 = new Photo("title64", "desc6", "url7", true, user1, c1);
-		Photo p7 = new Photo("title72", "desc7", "url8", true, bigBoss, c5,c2,c3);
-		Photo p8 = new Photo("title81", "desc8", "url6", false, user1, c6,c8);
+		Photo p1 = new Photo("title1", "desc1",
+				"https://i0.wp.com/clicmytrip.it/wp-content/uploads/2020/12/Spedizione-Felicita.jpg?resize=800%2C600&ssl=1",
+				false, admin1, c2, c3);
+		Photo p2 = new Photo("title2", "desc2",
+				"https://static.vecteezy.com/ti/foto-gratuito/p2/22251267-subacqueo-mare-scogliera-paesaggio-con-tropicale-pesce-corallo-rosso-stelle-e-spugne-cartone-animato-sfondo-blu-laguna-mondo-o-acquario-con-colorato-animali-e-sole-travi-ai-foto.jpg",
+				false, user1, c4, c5);
+		Photo p3 = new Photo("title3", "desc3",
+				"https://lh3.googleusercontent.com/YJs0_RwcN_ly7A_hELqDFUBOMs4vArGtiLpcdT0qdDvpm6gfoRsu_RbToAMyo8G6P_NS8DcICKB2AvfkuYxBdX12QxYJu3A4nkap0j8i-_yh=s0-c",
+				true, bigBoss, c7, c1, c2);
+		Photo p4 = new Photo("title4", "desc4",
+				"https://photobypawelp.files.wordpress.com/2017/11/ppp0834-copy-1200-72.jpg?w=584&h=390", true, bigBoss,
+				c5, c8);
+		Photo p5 = new Photo("title35", "desc5",
+				"https://www.viaggioinegitto.com/images/packages/1686129768packages2.webp",
+				true, admin1, c2);
+		Photo p6 = new Photo("title64", "desc6", "https://cdn.skuola.net/news_foto/2018/bellezza-natura.jpg", true,
+				user1, c1);
+		Photo p7 = new Photo("title72", "desc7",
+						"https://www.intermundial.it/blog/wp-content/uploads/2015/11/Viaggio-a-Cuba.jpg",
+				false, bigBoss, c5, c2, c3);
+		Photo p8 = new Photo("title81", "desc8",
+				"https://ae01.alicdn.com/kf/S8fd201a865f34417884df82141a53bef1/Sexy-Soccer-Uniform-Sex-Underwear-Set-donna-Cosplay-Cheerleading-Schoolgirl-sport-porno-Lingerie-erotica-calcio-Baby.jpg",
+				true, user1, c6, c8);
 
 		photoServ.save(p1);
 		photoServ.save(p2);

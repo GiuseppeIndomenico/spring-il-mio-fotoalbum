@@ -51,8 +51,7 @@ import axios from "axios";
 
 const API_URL = "http://localhost:8080/api/photos"
 
-const photos = ref(null);
-
+const photos = ref([]);
 const searchphoto = ref('');
 
 

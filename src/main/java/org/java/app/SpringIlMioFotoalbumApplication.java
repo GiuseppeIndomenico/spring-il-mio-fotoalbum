@@ -29,7 +29,7 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private MessageServ messageServ;
 
@@ -95,16 +95,27 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner {
 				"https://photobypawelp.files.wordpress.com/2017/11/ppp0834-copy-1200-72.jpg?w=584&h=390", true, bigBoss,
 				c5, c8);
 		Photo p5 = new Photo("title35", "desc5",
-				"https://www.viaggioinegitto.com/images/packages/1686129768packages2.webp",
-				true, admin1, c2);
+				"https://www.viaggioinegitto.com/images/packages/1686129768packages2.webp", true, admin1, c2);
 		Photo p6 = new Photo("title64", "desc6", "https://cdn.skuola.net/news_foto/2018/bellezza-natura.jpg", true,
 				user1, c1);
 		Photo p7 = new Photo("title72", "desc7",
-						"https://www.intermundial.it/blog/wp-content/uploads/2015/11/Viaggio-a-Cuba.jpg",
-				false, bigBoss, c5, c2, c3);
+				"https://www.intermundial.it/blog/wp-content/uploads/2015/11/Viaggio-a-Cuba.jpg", false, bigBoss, c5,
+				c2, c3);
 		Photo p8 = new Photo("title81", "desc8",
 				"https://ae01.alicdn.com/kf/S8fd201a865f34417884df82141a53bef1/Sexy-Soccer-Uniform-Sex-Underwear-Set-donna-Cosplay-Cheerleading-Schoolgirl-sport-porno-Lingerie-erotica-calcio-Baby.jpg",
 				true, user1, c6, c8);
+		Photo p9 = new Photo("title035", "desc5",
+				"https://gazzettadellaspezia.com/media/k2/items/cache/a9fef019aaef6fa92603820bb92d7cb1_L.jpg", true,
+				user1, c2, c4);
+		Photo p10 = new Photo("title335", "desc25",
+				"https://us.123rf.com/450wm/last19/last191809/last19180900613/108287865-amante-donna-e-uomo-asiatico-viaggio-natura-viaggia-rilassati-parco-naturale-della-montagna.jpg?ver=6",
+				true, admin1, c2, c1);
+		Photo p11 = new Photo("title355", "desc53",
+				"https://us.123rf.com/450wm/balinature/balinature2205/balinature220500019/186546576-la-donna-si-tuffa-nel-mare-blu-apnea-e-bella-signora-nell-oceano.jpg?ver=6",
+				true, user1, c4, c8);
+		Photo p12 = new Photo("title359", "desc45",
+				"https://img.freepik.com/free-photo/traveller-explores-rugged-landscape-iceland_346278-307.jpg?size=626&ext=jpg&ga=GA1.1.1413502914.1697414400&semt=ais",
+				true, bigBoss, c2, c5);
 
 		photoServ.save(p1);
 		photoServ.save(p2);
@@ -114,19 +125,22 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner {
 		photoServ.save(p6);
 		photoServ.save(p7);
 		photoServ.save(p8);
-
+		photoServ.save(p9);
+		photoServ.save(p10);
+		photoServ.save(p11);
+		photoServ.save(p12);
 		System.out.println("Photo Ok");
-		
+
 		Message m1 = new Message(admin1, "email", "sei mitico!");
 		Message m2 = new Message(bigBoss, "email", "wow!");
 		Message m3 = new Message(bigBoss, "email", "belle foto!");
 		Message m4 = new Message(admin1, "email", "ok boomer!");
-		
+
 		messageServ.save(m1);
 		messageServ.save(m2);
 		messageServ.save(m3);
 		messageServ.save(m4);
-		
+
 		System.out.println("message ok!");
 	}
 

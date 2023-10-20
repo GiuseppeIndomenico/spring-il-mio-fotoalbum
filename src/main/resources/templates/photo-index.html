@@ -30,8 +30,8 @@
 							</a>
 						</li>
 						<li class="nav-item dropdown mt-2">
-							<a class="nav-link dropdown-toggle d-flex align-items-center" th:href="@{/logout}" role="button"
-								data-bs-toggle="dropdown" aria-expanded="false">
+							<a class="nav-link dropdown-toggle d-flex align-items-center" th:href="@{/logout}"
+								role="button" data-bs-toggle="dropdown" aria-expanded="false">
 								<h6>
 									<em>
 										Welcome, <span th:text="${username}"></span>!
@@ -40,11 +40,37 @@
 							</a>
 							<ul class="dropdown-menu">
 								<li><a class="dropdown-item" th:href="@{/categories}">Categories List</a></li>
-								<li><a class="dropdown-item" href="#">Logout</a></li>
+								<li><a class="dropdown-item" th:href="@{/logout}">Logout</a>
+								</li>
 							</ul>
 
-					
-				
+
+
+						</li>
+
+						<li class="nav-item dropdown mt-2">
+							<a class="nav-link dropdown-toggle d-flex align-items-center" th:href="@{/logout}"
+								role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<h6>
+									<em>
+										New message for you
+									</em>
+								</h6>
+							</a>
+							<ul class="dropdown-menu">
+								<li class="dropdown-item" th:each="message : ${messages}">
+									<em><ul class="dropdown-menu">
+											<li class="dropdown-item" th:each="message : ${messages}">
+												<p th:text="${message.messageContent}"></p>
+											</li>
+										</ul>
+									</em>
+									<p th:text="${message.messageContent}"></p>
+								</li>
+							</ul>
+
+
+
 						</li>
 
 					</ul>

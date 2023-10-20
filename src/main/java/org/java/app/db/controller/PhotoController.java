@@ -3,8 +3,10 @@ package org.java.app.db.controller;
 import java.util.List;
 
 import org.java.app.db.pojo.Category;
+import org.java.app.db.pojo.Message;
 import org.java.app.db.pojo.Photo;
 import org.java.app.db.serv.CategoryServ;
+import org.java.app.db.serv.MessageServ;
 import org.java.app.db.serv.PhotoServ;
 import org.java.app.mvc.auth.pojo.User;
 import org.java.app.mvc.auth.repo.UserRepo;
@@ -36,12 +38,19 @@ public class PhotoController {
 	@Autowired
 	private UserRepo userRepo;
 
+	@Autowired
+	private MessageServ messageServ;
+
 	@GetMapping
 	public String getIndex(Model model) {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String loggedInUsername = userDetails.getUsername();
+		User loggedInUser = userRepo.findByUsername(loggedInUsername);
 
 		model.addAttribute("username", loggedInUsername);
+		
+		List<Message> messages = messageServ.findMessagesByUserId(loggedInUser.getId());
+		model.addAttribute("messages", messages);
 
 		List<Photo> photos;
 
@@ -61,10 +70,10 @@ public class PhotoController {
 		Photo photo = photoServ.findById(id).orElse(null);
 
 		if (photo != null) {
-			User user = photo.getUser(); // Ottieni l'utente associato alla foto
-			String username = (user != null) ? user.getUsername() : "Utente sconosciuto"; // Otteni il nome utente
+			User user = photo.getUser(); 
+			String username = (user != null) ? user.getUsername() : "Utente sconosciuto"; 
 			model.addAttribute("photo", photo);
-			model.addAttribute("username", username); // Aggiungi il nome utente al model
+			model.addAttribute("username", username);
 			return "photo-show";
 		} else {
 			return "photo-not-found";

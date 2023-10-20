@@ -7,11 +7,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.java.app.db.pojo.Message;
 import org.java.app.db.pojo.Photo;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
@@ -47,6 +49,11 @@ public class User implements UserDetails, Serializable  {
 	@OneToMany(mappedBy = "user")
 	@JsonManagedReference
 	private List<Photo> Photos;
+	
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore 
+    private List<Message> messages;
+
 
 	public User() {
 	}
@@ -90,6 +97,7 @@ public class User implements UserDetails, Serializable  {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
+	
 	
 	
 	public List<Photo> getPhotos() {

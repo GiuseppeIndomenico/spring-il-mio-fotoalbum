@@ -1,8 +1,10 @@
 package org.java.app;
 
 import org.java.app.db.pojo.Category;
+import org.java.app.db.pojo.Message;
 import org.java.app.db.pojo.Photo;
 import org.java.app.db.serv.CategoryServ;
+import org.java.app.db.serv.MessageServ;
 import org.java.app.db.serv.PhotoServ;
 import org.java.app.mvc.auth.pojo.Role;
 import org.java.app.mvc.auth.pojo.User;
@@ -27,6 +29,9 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private MessageServ messageServ;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringIlMioFotoalbumApplication.class, args);
@@ -111,6 +116,18 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner {
 		photoServ.save(p8);
 
 		System.out.println("Photo Ok");
+		
+		Message m1 = new Message(admin1, "email", "sei mitico!");
+		Message m2 = new Message(bigBoss, "email", "wow!");
+		Message m3 = new Message(bigBoss, "email", "belle foto!");
+		Message m4 = new Message(admin1, "email", "ok boomer!");
+		
+		messageServ.save(m1);
+		messageServ.save(m2);
+		messageServ.save(m3);
+		messageServ.save(m4);
+		
+		System.out.println("message ok!");
 	}
 
 }

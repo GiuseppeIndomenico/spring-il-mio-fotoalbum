@@ -18,7 +18,7 @@ public class AuthConfig {
 		http.csrf().disable().authorizeHttpRequests()
 	    .requestMatchers("/photos/**").hasAnyAuthority("SuperMegaDirettoreGalattico", "ADMIN")
 	    .requestMatchers("/categories/**").hasAnyAuthority("SuperMegaDirettoreGalattico", "ADMIN")
-	    .requestMatchers("/api/photos/**").permitAll()
+	    .requestMatchers("/api/**").permitAll()
 	    .requestMatchers("/photos/create").hasAnyAuthority("SuperMegaDirettoreGalattico", "ADMIN")
 	    .requestMatchers("/photos/update/**").hasAnyAuthority("SuperMegaDirettoreGalattico", "ADMIN")
 	    .requestMatchers("/photos/delete/**").hasAnyAuthority("SuperMegaDirettoreGalattico", "ADMIN")

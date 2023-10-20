@@ -21,7 +21,7 @@
     <div class="container">
       <h1 class="text-center fw-bold">Best photos in archive</h1>
 
-      <div class="row" v-if="photosFiltrate.length > 0">
+      <div class="row">
         <div class="col-4" v-for="(photo, index) in photosFiltrate" :key="index">
           <div class="card mb-3">
             <img :src="photo.url" class="card-img-top" alt="Photo Image">
@@ -34,10 +34,13 @@
             </div>
           </div>
         </div>
+
+        <div v-if="photosFiltrate.length === 0" class="col-12">
+          <h1 class="text-center gi-nothing display-5 fw-bold">No photo with this title</h1>
+        </div>
+
       </div>
-      <div v-else>
-        <h1 class="text-center gi-nothing display-5 fw-bold">No photo with this title</h1>
-      </div>
+
     </div>
   </div>
 </template>

@@ -91,8 +91,12 @@ onMounted(() => {
   transform: scale(0.8);
   transition: all .5s;
 
+
   .card-img-top {
     max-height: 280px;
+    object-fit: cover;
+    object-position: top;
+
   }
 
   &:hover {

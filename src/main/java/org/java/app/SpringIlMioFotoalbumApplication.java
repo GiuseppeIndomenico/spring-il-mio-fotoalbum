@@ -95,14 +95,14 @@ public class SpringIlMioFotoalbumApplication implements CommandLineRunner {
 				"https://photobypawelp.files.wordpress.com/2017/11/ppp0834-copy-1200-72.jpg?w=584&h=390", true, bigBoss,
 				c5, c8);
 		Photo p5 = new Photo("title35", "desc5",
-				"https://www.viaggioinegitto.com/images/packages/1686129768packages2.webp", true, admin1, c2);
+				"https://img.freepik.com/free-photo/selective-focus-miniature-tourist-compass-map-with-plastic-toy-airplane-abstract-background-travel-concept_1423-180.jpg?size=626&ext=jpg&ga=GA1.1.1788068356.1707091200&semt=sph", true, admin1, c2);
 		Photo p6 = new Photo("title64", "desc6", "https://cdn.skuola.net/news_foto/2018/bellezza-natura.jpg", true,
 				user1, c1);
 		Photo p7 = new Photo("title72", "desc7",
 				"https://www.intermundial.it/blog/wp-content/uploads/2015/11/Viaggio-a-Cuba.jpg", false, bigBoss, c5,
 				c2, c3);
 		Photo p8 = new Photo("title81", "desc8",
-				"https://ae01.alicdn.com/kf/S8fd201a865f34417884df82141a53bef1/Sexy-Soccer-Uniform-Sex-Underwear-Set-donna-Cosplay-Cheerleading-Schoolgirl-sport-porno-Lingerie-erotica-calcio-Baby.jpg",
+				"https://i.ebayimg.com/images/g/KekAAOSw~u5h8clF/s-l1200.webp",
 				true, user1, c6, c8);
 		Photo p9 = new Photo("title035", "desc5",
 				"https://gazzettadellaspezia.com/media/k2/items/cache/a9fef019aaef6fa92603820bb92d7cb1_L.jpg", true,
